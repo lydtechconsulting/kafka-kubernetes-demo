@@ -77,7 +77,7 @@ kubectl create -f ./resources/zookeeper.yml
 kubectl create -f ./resources/kafka.yml
 ```
 
-Zookeeper and Kafka pods can now be viewed in the minikube dashboard.  Alternatively from the command line:
+Kafka and Zookeeper pods can now be viewed in the minikube dashboard.  Alternatively from the command line:
 ```
 kubectl get pod
 ```
@@ -237,6 +237,7 @@ This should be reflected in the logs:
 
 ## References
 
+- [Kubernetes Tutorial for Beginners](https://www.youtube.com/watch?v=X48VuDVv0do)
 - [minikube Documentation](https://minikube.sigs.k8s.io/docs/)
 - [Setting up Kafka on Kubernetes - an easy way](https://blog.datumo.io/setting-up-kafka-on-kubernetes-an-easy-way-26ae150b9ca8)
 - [How to Run Locally Built Docker Images in Kubernetes](https://medium.com/swlh/how-to-run-locally-built-docker-images-in-kubernetes-b28fbc32cc1d)
