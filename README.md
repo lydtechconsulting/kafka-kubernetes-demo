@@ -79,18 +79,18 @@ kubectl create -f ./resources/kafka.yml
 
 Kafka and Zookeeper pods can now be viewed in the minikube dashboard.  Alternatively from the command line:
 ```
-kubectl get pod
+kubectl get pods
 ```
 This provides the pod names which can be used for later commands.
 
 To view the deployments:
 ```
-kubectl get deployment
+kubectl get deployments
 ```
 
 To view the services:
 ```
-kubectl get service
+kubectl get services
 ```
 
 View the logs (with the pod name obtained via `kubectrl get pod`):
@@ -100,7 +100,7 @@ kubectl logs kafka-deployment-57f8cd77f6-v2gts
 
 To delete all pods:
 ```
-kubectl delete --all pod
+kubectl delete --all pods
 ```
 Note that as the pods are managed by the deployment, as the pod counts drop below the required replica count, they are recreated.
 
@@ -234,6 +234,56 @@ This should be reflected in the logs:
 14:25:09.789 INFO  d.k.s.DemoService - Sending 2 events
 14:25:09.818 INFO  d.k.s.DemoService - Total events sent: 2
 ```
+### Enable Ingress
+
+https://kubernetes.io/docs/tasks/access-application-cluster/ingress-minikube/
+
+```
+minikube addons enable ingress
+```
+Verify running with:
+```
+kubectl get pods -n ingress-nginx
+```
+Create the ingress for the `kafka-kubernetes-demo-service`:
+```
+kubectl apply -f ./resources/demo-ingress.yml
+```
+The output on the console should show this as created:
+```
+ingress.networking.k8s.io/demo-ingress created
+```
+The ingress has been created with host `k8s.springboot.demo`.  To view the ingress:
+```
+kubectl get ingress
+```
+
+The ingress can be deleted with the following:
+```
+kubectl delete ingress demo-ingress
+```
+
+Update the `/etc/hosts` file, adding the following line (correct for MacOS ARM):
+```
+127.0.0.1 k8s.springboot.demo
+```
+For other operating systems add the minikube IP to the `/etc/hosts` file instead:
+```
+192.168.49.2 k8s.springboot.demo
+```
+Now start the minikube tunnel:
+```
+minikube tunnel
+```
+Open the following address in the browser to see the landing page:
+```
+http://k8s.springboot.demo
+```
+Alternatively verify by getting the application version using `curl`:
+```
+curl -X GET http://k8s.springboot.demo/v1/demo/version
+```
+This returns the String `v1`.
 
 ## References
 
@@ -242,3 +292,4 @@ This should be reflected in the logs:
 - [Setting up Kafka on Kubernetes - an easy way](https://blog.datumo.io/setting-up-kafka-on-kubernetes-an-easy-way-26ae150b9ca8)
 - [How to Run Locally Built Docker Images in Kubernetes](https://medium.com/swlh/how-to-run-locally-built-docker-images-in-kubernetes-b28fbc32cc1d)
 - [How to Deploy Docker Containers to the Kubernetes Cluster using Kubernetes CLI](https://sweetcode.io/how-to-deploy-docker-containers-to-the-kubernetes-cluster-using-kubernetes-cli/)
+- [Set up Ingress on Minikube with the NGINX Ingress Controller](https://kubernetes.io/docs/tasks/access-application-cluster/ingress-minikube/)
