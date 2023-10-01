@@ -2,6 +2,12 @@
 
 Spring Boot application used to demonstrate deployment to Kubernetes along with Kafka and Zookeeper.
 
+This repo accompanies the following series of articles on Kafka on Kubernetes:
+
+- [Kafka on Kubernetes - Part 1: Introduction to Kubernetes](https://www.lydtechconsulting.com/blog-kafka-kubernetes-demo-pt1.html):  Provides an overview of Kubernetes including the key components that must be understood in order to deploy applications and expose them to external sources.  Explains how minikube enables running and testing Kubernetes deployments locally, and the use of kubectl to interact with the Kubenetes cluster.
+- [Kafka on Kubernetes - Part 2: Deploying Kafka](https://www.lydtechconsulting.com/blog-kafka-kubernetes-demo-pt2.html):  Walks through deploying Kafka and Zookeeper to Kubernetes, and explains the kubectl commands used to query the state of the deployment.  Steps through sending and receiving events to the deployed Kafka instance using the Kafka command line tools.
+- [Kafka on Kubernetes - Part 3: Spring Boot Demo](https://www.lydtechconsulting.com/blog-kafka-kubernetes-demo-pt3.html):  Walks through deploying a Spring Boot application to Kubernetes.  The application connects to the deployed Kafka to consume and produce events.  It provides a REST API enabling a client to trigger sending events to Kafka, and the steps to expose this to an external source are described.
+
 ## Overview
 
 The application provides a REST endpoint that accepts a request to trigger sending events.  The number of events to produce can be specified.
